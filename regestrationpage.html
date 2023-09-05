@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+    <title>regestration page</title>
+    <style>
+        body{
+            background-image: url("img2.jpg");
+            background-repeat: no-repeat;
+            background-size:cover;
+            height: 560px;
+           
+        }
+        p{
+            text-align: center;
+            font-size: 30px;
+            color:firebrick;
+        }
+        .p1{
+            font-size: 15px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .s1{
+            color: black;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        label{
+            display:inline-block;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color:black;
+        }
+        h1{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 15px;
+            color: black;
+        }
+        .c2,.c3,.c4{
+            padding-left: 3%;
+        }
+        .d1,.d2,.d3,.d4{
+            text-align: center;
+            padding-top: 3%;
+            background-color: rgba(227, 237, 229, 0.3);
+        }
+        .d2{
+             float: left;
+             margin-left: 20%;           
+        }
+        .c5{
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input{
+            background-color:azure;
+            border: 2px solid azure;
+            border-radius: 5px;
+            background-color:rgb(227,237,229);
+        }
+        select{
+            color: brown;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            border-color: azure;
+            border-radius: 5px;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <form>
+    <p>Welcome to Wah..!! Hotel</p>
+    <div class="d1">
+        <label for="cname" class="c1">Customer Name:</label>
+        <input type="text" id="cname" placeholder="enter your name" required>
+        <label for="Date" class="c2">Check in Date:</label>
+        <input type="date" id="Date" placeholder="select date" required>
+        <label for="npersons" class="c3">No of persons:</label>
+        <input type="number" id="npersons" placeholder="enter no of persons"  required>
+        <label for="ndays" class="c4">No of days:</label>
+        <input type="number" id="totalDays" placeholder="enter no of days" required>
+    </div>
+    <div class="d2">
+        <h1>Room type:</h1>
+        <label for="roomType" class="c5">Room Type:</label>
+        <select id="roomType">
+          <option value="Delux">Delux Room<span>(2500/-)</span></option>
+          <option value="Suite">Suite Room<span>(4000/-)</span></option>
+        </select><br>
+    </div>
+    <div class="d3">
+        <h1>Amenities:</h1>
+        <label for="amn" class="c5">Room Type:</label>
+        <select id="amn">
+          <option value="0">A/C<span>(1000/-)</span></option>
+          <option value="1">Locker<span>(300/-)</span></option>
+        </select><br><br>
+        <p class="p1"><span class="s1">upto 2 people</span>:- no change in cost<br><span class="s1">per day cost for extra person</span>:-1000/-</p>
+        <label for="aamount">Advance amount:-</label>
+        <input type="number" id="aamount" placeholder="enter amount" required><br><br>
+        <button type="button" onclick="calculateCost()">save</button><br>
+        <label for="rcost" class="c1">Total Room<br>Cost:</label>
+        <input type="text" id="rcost">
+        <label for="acost" class="c2">Total Amenities<br>Cost:</label>
+        <input type="number" id="acost">
+        <label for="tcost" class="c3">Total Cost:</label>
+        <input type="number" id="tcost">
+        <label for="remcost" class="c4">Remaining<br>Balance:</label>
+        <input type="number" id="remcost"><br><br>
+    </div>
+    </form>
+    <script>
+        function calculateCost() {
+            
+            alert("are rou ready for submission")
+            const pcount = parseInt(document.getElementById("npersons").value);
+            const totalDays = parseInt(document.getElementById("totalDays").value);
+            const roomType = document.getElementById("roomType").value;
+            const amenities= document.getElementById("amn").value;
+            const advanceAmount = parseInt(document.getElementById("aamount").value);
+           
+            const roomRate = roomType === "Delux" ? 2500 : 4000;
+            const amenitiesCost= amenities ==="0" ? 1000 : 300;
+
+            const totalRoomCost = roomRate * totalDays;
+            const Tamcost= amenitiesCost*totalDays;
+            if(pcount>2)
+            {
+                const epcost=(pcount-2)*1000*totalDays;
+                const totalCost=totalRoomCost+Tamcost+epcost;
+                document.getElementById("tcost").value=`${totalCost}`;
+                const balance=totalCost-advanceAmount;
+               document.getElementById("rcost").value=`${totalRoomCost}`;
+               document.getElementById("acost").value=`${Tamcost}`;
+               document.getElementById("remcost").value=`${balance}`;
+
+            }
+            else{
+                const epcost=0;
+                const totalCost=totalRoomCost+Tamcost+epcost;
+                document.getElementById("tcost").value=`${totalCost}`;
+                const balance=totalCost-advanceAmount;
+                document.getElementById("rcost").value=`${totalRoomCost}`;
+                document.getElementById("acost").value=`${Tamcost}`;
+                document.getElementById("remcost").value=`${balance}`;
+            }
+            
+
+        }
+    </script>
+
+</body>
+</html>
